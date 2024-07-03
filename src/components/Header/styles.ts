@@ -5,5 +5,6 @@ export const HeaderContainer = styled.header`
 
   img {
     width: 150px;
+    cursor: pointer;
   }
 `;

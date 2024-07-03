@@ -6,6 +6,11 @@
 		"lineWidth": 80
 	},
 	"linter": {
-		"enabled": true
+		"enabled": true,
+		"rules": {
+			"suspicious": {
+				"noArrayIndexKey": "off"
+			}
+		}
 	}
 }
