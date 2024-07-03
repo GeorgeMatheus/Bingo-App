@@ -1,0 +1,14 @@
+version: '3.8'
+name: app-bingo-frontend
+
+
+services:
+  react-app:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    build:
+      context: .
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_APP_PORT=${VITE_APP_PORT}
+    ports:
+      - "${VITE_APP_PORT}:${VITE_APP_PORT}"

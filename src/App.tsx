@@ -4,10 +4,12 @@ import { GlobalStyle } from "./styles/global";
 import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./styles/themes/defaults";
 
+const baseUrl = import.meta.env.VITE_APP_ROOT || "/";
+
 export function App() {
 	return (
 		<ThemeProvider theme={defaultTheme}>
-			<BrowserRouter>
+			<BrowserRouter basename={baseUrl}>
 				<Router />
 			</BrowserRouter>
 			<GlobalStyle />

@@ -62,7 +62,7 @@ export function DrawNumbers() {
 						{Array.from({ length: 5 }, (_, rowIndex) => (
 							<RowOfNumbers key={rowIndex}>
 								{/* <span>B</span> */}
-								{Array.from({ length: 15 }, (_, colIndex) => {
+								{Array.from({ length: 15 }, () => {
 									const number = renderNumberCurrent;
 									renderNumberCurrent += 1;
 									const isDrawn = drawnNumbers.includes(number);

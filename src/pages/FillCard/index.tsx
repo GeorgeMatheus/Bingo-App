@@ -21,11 +21,7 @@ export function FillCard() {
 		[key: string]: boolean;
 	}>({});
 
-	function handleCheckNumber(
-		rowIndex: number,
-		colIndex: number,
-		column: ResultKey,
-	) {
+	function handleCheckNumber(rowIndex: number, column: ResultKey) {
 		const key = `${column}-${rowIndex}`;
 		setMarkedNumbers((prev) => ({
 			...prev,
@@ -36,11 +32,10 @@ export function FillCard() {
 	function handleKeyDownBingoPlayer(
 		event: React.KeyboardEvent<HTMLDivElement>,
 		rowIndex: number,
-		colIndex: number,
 		column: ResultKey,
 	) {
 		if (event.key === "Enter" || event.key === " ") {
-			handleCheckNumber(rowIndex, colIndex, column);
+			handleCheckNumber(rowIndex, column);
 		}
 	}
 
@@ -62,23 +57,16 @@ export function FillCard() {
 					<tbody>
 						{[0, 1, 2, 3, 4].map((rowIndex) => (
 							<tr key={rowIndex}>
-								{columns.map((column, colIndex) => (
+								{columns.map((column) => (
 									<td key={column}>
 										<div
 											onKeyDown={(event) =>
-												handleKeyDownBingoPlayer(
-													event,
-													rowIndex,
-													colIndex,
-													column,
-												)
+												handleKeyDownBingoPlayer(event, rowIndex, column)
 											}
 											tabIndex={0}
 											role="button"
 											aria-label="Marcar números"
-											onClick={() =>
-												handleCheckNumber(rowIndex, colIndex, column)
-											}
+											onClick={() => handleCheckNumber(rowIndex, column)}
 											style={{
 												backgroundColor: markedNumbers[`${column}-${rowIndex}`]
 													? "#EC5D5E"
