@@ -38,10 +38,10 @@ export function InsertCodePlayer() {
 
 			console.log(response.data);
 
-			navigate("/fillCard");
+			// navigate("/fillCard");
 		} catch (error) {
 			console.log(error);
-			navigate("/fillCard");
+			// navigate("/fillCard");
 		}
 	}
 
