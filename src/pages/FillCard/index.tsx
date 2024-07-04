@@ -28,22 +28,25 @@ export function FillCard() {
 	}, []);
 
 	async function uploadCardUser() {
-		const responseCardBingo = await api.get(`/bingo-cards/${code}`);
-		const responseUser = await api.get(`/users/${code}`);
+		try {
+			const [responseCardBingo, responseUser] = await Promise.all([
+				api.get(`/bingo-cards/${code}`),
+				api.get(`/users/${code}`),
+			]);
 
-		console.log(responseCardBingo.data);
-		console.log(responseUser.data);
+			const card = {
+				numbersB: responseCardBingo.data.result.numbersB,
+				numbersI: responseCardBingo.data.result.numbersI,
+				numbersN: responseCardBingo.data.result.numbersN,
+				numbersG: responseCardBingo.data.result.numbersG,
+				numbersO: responseCardBingo.data.result.numbersO,
+			};
 
-		const card = {
-			numbersB: responseCardBingo.data.result.numbersB,
-			numbersI: responseCardBingo.data.result.numbersI,
-			numbersN: responseCardBingo.data.result.numbersN,
-			numbersG: responseCardBingo.data.result.numbersG,
-			numbersO: responseCardBingo.data.result.numbersO,
-		};
-
-		setUser(responseUser.data);
-		setBingoCard(card);
+			setUser(responseUser.data);
+			setBingoCard(card);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	function handleCheckNumber(rowIndex: number, column: keyof CardNumbers) {

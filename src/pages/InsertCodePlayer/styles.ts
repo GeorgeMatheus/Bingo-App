@@ -17,7 +17,7 @@ export const Form = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 3px;
+  gap: 6px;
 `;
 
 export const InputContainer = styled.div`
@@ -57,4 +57,9 @@ export const Button = styled.button`
   &:hover {
     background: ${(props) => props.theme.greenHover};
   }
+`;
+
+export const ErrorText = styled.p`
+  color: #cc0000;
+  text-align: center;
 `;

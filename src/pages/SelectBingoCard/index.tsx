@@ -13,6 +13,8 @@ import {
 } from "./styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
+import useModal from "../../hooks/useModal";
+import { ConfirmationMessage } from "../../components/ConfirmationMessage";
 
 export function SelectBingoCard() {
 	const [bingoCard, setBingoCard] = useState<CardNumbers>({
@@ -24,6 +26,7 @@ export function SelectBingoCard() {
 	});
 	const { code } = useParams();
 	const navigate = useNavigate();
+	const [modal, showModal] = useModal();
 
 	useEffect(() => {
 		setBingoCard(generateBingoCard());
@@ -69,10 +72,20 @@ export function SelectBingoCard() {
 		}
 	}
 
+	function handleSelectCardNumberModal() {
+		showModal("Deseja escolher esta cartela?", (onClose) => (
+			<ConfirmationMessage
+				onClose={onClose}
+				onAction={handleSelectCardNumber}
+			/>
+		));
+	}
+
 	const columns = Object.keys(bingoCard) as (keyof CardNumbers)[];
 
 	return (
 		<>
+			{modal}
 			<Header />
 			<BingoContainer>
 				<CabCardNumbers>
@@ -82,7 +95,7 @@ export function SelectBingoCard() {
 						<BtnSelectCard onClick={() => setBingoCard(generateBingoCard())}>
 							Nova cartela
 						</BtnSelectCard>
-						<BtnConfirmCard onClick={handleSelectCardNumber}>
+						<BtnConfirmCard onClick={handleSelectCardNumberModal}>
 							Confirmar
 						</BtnConfirmCard>
 					</ContainerButtons>

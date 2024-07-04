@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../../components/Header";
 import {
 	Button,
+	ErrorText,
 	Form,
 	FormContainer,
 	InputCode,
@@ -13,7 +14,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
-import { User } from "../../@types/User";
+import axios from "axios";
 
 const userCode = z.object({
 	userCode: z.coerce.number(),
@@ -23,23 +24,36 @@ type UserCodeType = z.infer<typeof userCode>;
 
 export function InsertCodePlayer() {
 	const labelRef = useRef<HTMLLabelElement>(null);
+	const [errorText, setErrorText] = useState("");
 	const navigate = useNavigate();
 
 	const {
 		register,
 		handleSubmit,
-		// formState: { errors },
+		formState: { isSubmitting },
 	} = useForm<UserCodeType>({
 		resolver: zodResolver(userCode),
 	});
 
 	async function handleUserCode({ userCode }: UserCodeType) {
 		try {
-			const response = await api.get<User>(`/users/${userCode}`);
+			let response = await api.get(`/users/${userCode}`);
 
-			navigate(`/selectBingoCard/${response.data.result.code}`);
-		} catch (error) {
-			console.log(error);
+			response = await api.get(`/bingo-cards/${userCode}`);
+
+			if (response.data.message === "Usuário não possui cartela.") {
+				navigate(`/selectBingoCard/${userCode}`);
+			} else if (response.data.message === "Sucesso ao carregar cartela.") {
+				navigate(`/fillCard/${userCode}`);
+			}
+		} catch (error: unknown) {
+			console.error(error);
+
+			if (axios.isAxiosError(error)) {
+				setErrorText(error.response?.data?.message);
+			} else {
+				console.error("Unexpected error", error);
+			}
 		}
 	}
 
@@ -48,6 +62,8 @@ export function InsertCodePlayer() {
 			labelRef.current.focus();
 		}
 	}, []);
+
+	// console.log(errors);
 
 	return (
 		<>
@@ -62,9 +78,13 @@ export function InsertCodePlayer() {
 							{...register("userCode")}
 							type="number"
 							id="input-code"
+							required
 						/>
-						<Button type="submit">Iniciar</Button>
+						<Button type="submit" disabled={isSubmitting}>
+							Iniciar
+						</Button>
 					</InputContainer>
+					{errorText && <ErrorText>{errorText}</ErrorText>}
 				</Form>
 			</FormContainer>
 		</>

@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+// Animação de giro
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
 
 export const DrawNumbersContainer = styled.div`
   display: flex;
@@ -63,21 +73,35 @@ export const DrawNumber = styled.div`
   gap: 2rem;
 `;
 
-export const CurrentNumber = styled.div`
+export const CurrentNumber = styled.div<{ isSpinning: boolean }>`
   background: ${(props) => props.theme.pink};
   border-radius: 50%;
-  padding: 3rem;
   width: 200px;
   border: 3px solid ${(props) => props.theme.white};
   display: flex;
   align-items: center;
   justify-content: center;
 
-  h1 {
-    font-size: 5rem;
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    font-size: 4rem;
     user-select: none;
     color: ${(props) => props.theme.white};
+    ${({ isSpinning }) =>
+			isSpinning &&
+			css`
+        animation: ${spin} 1s ease-in-out;
+      `}
   }
+`;
+
+export const Letter = styled.p`
+  color: ${(props) => props.theme.gray};
+  font-size: 3rem;
 `;
 
 export const ButtonDrawNumber = styled.button`
