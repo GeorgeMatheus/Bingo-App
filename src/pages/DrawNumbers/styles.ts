@@ -3,10 +3,56 @@ import styled from "styled-components";
 export const DrawNumbersContainer = styled.div`
   display: flex;
   align-items: center;
-  color: #fff;
   min-height: 90vh;
   padding: 0 5rem;
-  gap: 1rem;
+  gap: 2rem;
+`;
+
+export const DrawnNumbersCab = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+
+  button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+    width: 110px;
+    color: #66a3ff;
+    border: 1px solid #66a3ff;
+  }
+`;
+
+export const BtnRestartDraw = styled.button`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 4px;
+  border-radius: 5px;
+  width: 110px;
+  color: #66a3ff;
+  border: 1px solid #66a3ff;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  
+  &:hover {
+    background-color: rgba(179, 229, 252, 0.2); /* Light blue with transparency */
+    color: rgba(0, 123, 178, 1); /* Darker blue for contrast */
+    border-color: rgba(0, 123, 178, 1);
+    box-shadow: 0px 4px 8px rgba(0, 123, 178, 0.2); /* Soft shadow for a 3D effect */
+  }
+  
+  &:disabled {
+    background-color: #e0e0e0; 
+    color: #9e9e9e; 
+    border-color: #9e9e9e;
+    cursor: not-allowed;
+  }
 `;
 
 export const DrawNumber = styled.div`
@@ -30,6 +76,7 @@ export const CurrentNumber = styled.div`
   h1 {
     font-size: 5rem;
     user-select: none;
+    color: ${(props) => props.theme.white};
   }
 `;
 
@@ -57,6 +104,8 @@ export const ButtonDrawNumber = styled.button`
 export const DrawnNumbers = styled.div`
   background: ${(props) => props.theme.whitesmoke};
   flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
 `;
 
 export const RowOfNumbers = styled.div`
@@ -75,6 +124,17 @@ export const CardNumber = styled.div`
   width: 50px;
   height: 50px;
   font-size: 1.5rem;
-  margin: 1rem;
+  margin: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+`;
+
+export const Letters = styled.div`
+  color: ${(props) => props.theme.black};
+  font-size: 2.5rem;
+  font-weight: bold;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
 `;

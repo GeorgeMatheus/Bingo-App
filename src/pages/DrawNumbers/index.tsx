@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { Header } from "../../components/Header";
+import { ArrowCounterClockwise } from "@phosphor-icons/react";
+
 import {
+	BtnRestartDraw,
 	ButtonDrawNumber,
 	CardNumber,
 	CurrentNumber,
 	DrawNumber,
 	DrawNumbersContainer,
 	DrawnNumbers,
+	DrawnNumbersCab,
+	Letters,
 	RowOfNumbers,
 } from "./styles";
 
 const min = 1;
 const max = 75;
 const startNumber = 1;
+const bingoLetters = ["B", "I", "N", "G", "O"];
 
 export function DrawNumbers() {
 	const [drawnNumbers, setDrawnNumbers] = useState<number[]>([]);
@@ -53,15 +59,18 @@ export function DrawNumbers() {
 				</DrawNumber>
 
 				<DrawnNumbers>
-					<h1>Números sorteados</h1>
-					<button type="button" onClick={() => setDrawnNumbers([])}>
-						Reinicar sorteio
-					</button>
+					<DrawnNumbersCab>
+						<h1>Números sorteados</h1>
+						<BtnRestartDraw type="button" onClick={() => setDrawnNumbers([])}>
+							Reinicar
+							<ArrowCounterClockwise size={20} />
+						</BtnRestartDraw>
+					</DrawnNumbersCab>
 
 					<div>
-						{Array.from({ length: 5 }, (_, rowIndex) => (
-							<RowOfNumbers key={rowIndex}>
-								{/* <span>B</span> */}
+						{bingoLetters.map((letter) => (
+							<RowOfNumbers key={letter}>
+								<Letters>{letter}</Letters>
 								{Array.from({ length: 15 }, () => {
 									const number = renderNumberCurrent;
 									renderNumberCurrent += 1;
