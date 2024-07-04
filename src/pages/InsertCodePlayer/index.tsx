@@ -11,7 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 
 const userCode = z.object({
@@ -22,7 +22,7 @@ type UserCodeType = z.infer<typeof userCode>;
 
 export function InsertCodePlayer() {
 	const labelRef = useRef<HTMLLabelElement>(null);
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const {
 		register,
