@@ -50,7 +50,7 @@ export const BtnRestartDraw = styled.button`
   border: 1px solid #66a3ff;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
   
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: rgba(179, 229, 252, 0.2); /* Light blue with transparency */
     color: rgba(0, 123, 178, 1); /* Darker blue for contrast */
     border-color: rgba(0, 123, 178, 1);
