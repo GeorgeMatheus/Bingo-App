@@ -1,27 +1,58 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../../components/Header";
-import { BingoContainer, BingoTable, Title } from "./styles";
-
-const card1 = {
-	result: {
-		numbersB: [3, 7, 12, 14, 9],
-		numbersI: [17, 23, 28, 29, 25],
-		numbersN: [31, 36, 37, 48, 42],
-		numbersG: [46, 53, 57, 59, 60],
-		numbers0: [64, 67, 68, 70, 75],
-	},
-};
-
-type ResultKey = keyof typeof card1.result;
+import {
+	BingoContainer,
+	BingoTable,
+	BtnConfirmCard,
+	BtnSelectCard,
+	CabCardNumbers,
+	ContainerButtons,
+	Subtitulo,
+	Title,
+} from "./styles";
+import { CardNumbers } from "../../@types/CardNumbers";
 
 export function FillCard() {
-	const { result } = card1;
-	const columns = Object.keys(result) as ResultKey[];
+	const [bingoCard, setBingoCard] = useState<CardNumbers>({
+		numbersB: [],
+		numbersI: [],
+		numbersN: [],
+		numbersG: [],
+		numbersO: [],
+	});
+
 	const [markedNumbers, setMarkedNumbers] = useState<{
 		[key: string]: boolean;
 	}>({});
 
-	function handleCheckNumber(rowIndex: number, column: ResultKey) {
+	useEffect(() => {
+		setBingoCard(generateBingoCard());
+	}, []);
+
+	function generateBingoCard(): CardNumbers {
+		function getRandomNumbersInRange(
+			min: number,
+			max: number,
+			count: number,
+		): number[] {
+			const numbers = new Set<number>();
+			while (numbers.size < count) {
+				const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+				numbers.add(randomNum);
+			}
+			return Array.from(numbers);
+		}
+
+		return {
+			numbersB: getRandomNumbersInRange(1, 15, 5),
+			numbersI: getRandomNumbersInRange(16, 30, 5),
+			numbersN: getRandomNumbersInRange(31, 45, 5),
+			numbersG: getRandomNumbersInRange(46, 60, 5),
+			numbersO: getRandomNumbersInRange(61, 75, 5),
+		};
+	}
+
+	function handleCheckNumber(rowIndex: number, column: keyof CardNumbers) {
 		const key = `${column}-${rowIndex}`;
 		setMarkedNumbers((prev) => ({
 			...prev,
@@ -32,18 +63,36 @@ export function FillCard() {
 	function handleKeyDownBingoPlayer(
 		event: React.KeyboardEvent<HTMLDivElement>,
 		rowIndex: number,
-		column: ResultKey,
+		column: keyof CardNumbers,
 	) {
 		if (event.key === "Enter" || event.key === " ") {
 			handleCheckNumber(rowIndex, column);
 		}
 	}
 
+	function handleSelectCardNumber() {
+		console.log(bingoCard);
+	}
+
+	const columns = Object.keys(bingoCard) as (keyof CardNumbers)[];
+
 	return (
 		<>
 			<Header />
 			<BingoContainer>
-				<Title>Bem vindo(a), fulano!</Title>
+				<CabCardNumbers>
+					<Title>Bem vindo(a)!</Title>
+					<Subtitulo>Selecione uma cartela</Subtitulo>
+					<ContainerButtons>
+						<BtnSelectCard onClick={() => setBingoCard(generateBingoCard())}>
+							Nova cartela
+						</BtnSelectCard>
+						<BtnConfirmCard onClick={handleSelectCardNumber}>
+							Confirmar
+						</BtnConfirmCard>
+					</ContainerButtons>
+				</CabCardNumbers>
+
 				<BingoTable>
 					<thead>
 						<tr>
@@ -79,7 +128,7 @@ export function FillCard() {
 													: "none",
 											}}
 										>
-											{result[column][rowIndex]}
+											{bingoCard[column][rowIndex]}
 										</div>
 									</td>
 								))}

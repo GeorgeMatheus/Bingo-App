@@ -1,10 +1,18 @@
 import { useEffect, useRef } from "react";
 import { Header } from "../../components/Header";
-import { Button, Form, FormContainer, InputCode, InputContainer, LabelInput } from "./styles";
+import {
+	Button,
+	Form,
+	FormContainer,
+	InputCode,
+	InputContainer,
+	LabelInput,
+} from "./styles";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
 
 const userCode = z.object({
 	userCode: z.coerce.number(),
@@ -24,9 +32,17 @@ export function InsertCodePlayer() {
 		resolver: zodResolver(userCode),
 	});
 
-	function handleUserCode(userCode: UserCodeType) {
-		console.log(userCode);
-		navigate("/fillCard");
+	async function handleUserCode({ userCode }: UserCodeType) {
+		try {
+			const response = await api.get(`/users/${userCode}`);
+
+			console.log(response.data);
+
+			navigate("/fillCard");
+		} catch (error) {
+			console.log(error);
+			navigate("/fillCard");
+		}
 	}
 
 	useEffect(() => {
@@ -44,7 +60,11 @@ export function InsertCodePlayer() {
 						Por favor, insira o código do jogador
 					</LabelInput>
 					<InputContainer>
-						<InputCode {...register("userCode")} type="number" id="input-code" />
+						<InputCode
+							{...register("userCode")}
+							type="number"
+							id="input-code"
+						/>
 						<Button type="submit">Iniciar</Button>
 					</InputContainer>
 				</Form>
