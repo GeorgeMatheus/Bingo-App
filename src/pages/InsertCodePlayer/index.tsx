@@ -11,8 +11,9 @@ import {
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { User } from "../../@types/User";
 
 const userCode = z.object({
 	userCode: z.coerce.number(),
@@ -22,7 +23,7 @@ type UserCodeType = z.infer<typeof userCode>;
 
 export function InsertCodePlayer() {
 	const labelRef = useRef<HTMLLabelElement>(null);
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -34,14 +35,11 @@ export function InsertCodePlayer() {
 
 	async function handleUserCode({ userCode }: UserCodeType) {
 		try {
-			const response = await api.get(`/users/${userCode}`);
+			const response = await api.get<User>(`/users/${userCode}`);
 
-			console.log(response.data);
-
-			// navigate("/fillCard");
+			navigate(`/selectBingoCard/${response.data.result.code}`);
 		} catch (error) {
 			console.log(error);
-			// navigate("/fillCard");
 		}
 	}
 

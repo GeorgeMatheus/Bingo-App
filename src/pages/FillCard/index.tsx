@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
 import { Header } from "../../components/Header";
-import {
-	BingoContainer,
-	BingoTable,
-	BtnConfirmCard,
-	BtnSelectCard,
-	CabCardNumbers,
-	ContainerButtons,
-	Subtitulo,
-	Title,
-} from "./styles";
+import { BingoContainer, BingoTable, Title } from "./styles";
 import { CardNumbers } from "../../@types/CardNumbers";
+import { useParams } from "react-router-dom";
+import { api } from "../../services/api";
+import { User } from "../../@types/User";
 
 export function FillCard() {
 	const [bingoCard, setBingoCard] = useState<CardNumbers>({
@@ -21,35 +15,35 @@ export function FillCard() {
 		numbersO: [],
 	});
 
+	const [user, setUser] = useState<User>();
+
 	const [markedNumbers, setMarkedNumbers] = useState<{
 		[key: string]: boolean;
 	}>({});
 
+	const { code } = useParams();
+
 	useEffect(() => {
-		setBingoCard(generateBingoCard());
+		uploadCardUser();
 	}, []);
 
-	function generateBingoCard(): CardNumbers {
-		function getRandomNumbersInRange(
-			min: number,
-			max: number,
-			count: number,
-		): number[] {
-			const numbers = new Set<number>();
-			while (numbers.size < count) {
-				const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-				numbers.add(randomNum);
-			}
-			return Array.from(numbers);
-		}
+	async function uploadCardUser() {
+		const responseCardBingo = await api.get(`/bingo-cards/${code}`);
+		const responseUser = await api.get(`/users/${code}`);
 
-		return {
-			numbersB: getRandomNumbersInRange(1, 15, 5),
-			numbersI: getRandomNumbersInRange(16, 30, 5),
-			numbersN: getRandomNumbersInRange(31, 45, 5),
-			numbersG: getRandomNumbersInRange(46, 60, 5),
-			numbersO: getRandomNumbersInRange(61, 75, 5),
+		console.log(responseCardBingo.data);
+		console.log(responseUser.data);
+
+		const card = {
+			numbersB: responseCardBingo.data.result.numbersB,
+			numbersI: responseCardBingo.data.result.numbersI,
+			numbersN: responseCardBingo.data.result.numbersN,
+			numbersG: responseCardBingo.data.result.numbersG,
+			numbersO: responseCardBingo.data.result.numbersO,
 		};
+
+		setUser(responseUser.data);
+		setBingoCard(card);
 	}
 
 	function handleCheckNumber(rowIndex: number, column: keyof CardNumbers) {
@@ -70,29 +64,13 @@ export function FillCard() {
 		}
 	}
 
-	function handleSelectCardNumber() {
-		console.log(bingoCard);
-	}
-
 	const columns = Object.keys(bingoCard) as (keyof CardNumbers)[];
 
 	return (
 		<>
 			<Header />
 			<BingoContainer>
-				<CabCardNumbers>
-					<Title>Bem vindo(a)!</Title>
-					<Subtitulo>Selecione uma cartela</Subtitulo>
-					<ContainerButtons>
-						<BtnSelectCard onClick={() => setBingoCard(generateBingoCard())}>
-							Nova cartela
-						</BtnSelectCard>
-						<BtnConfirmCard onClick={handleSelectCardNumber}>
-							Confirmar
-						</BtnConfirmCard>
-					</ContainerButtons>
-				</CabCardNumbers>
-
+				<Title>{`Bem vindo, ${user?.result?.nome}!`}</Title>
 				<BingoTable>
 					<thead>
 						<tr>
