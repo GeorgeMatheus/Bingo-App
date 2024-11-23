@@ -13,7 +13,7 @@ const spin = keyframes`
 export const DrawNumbersContainer = styled.div`
   display: flex;
   align-items: center;
-  min-height: 90vh;
+  flex-wrap: wrap;
   padding: 0 5rem;
   gap: 2rem;
 `;
@@ -74,7 +74,7 @@ export const DrawNumber = styled.div`
 `;
 
 export const CurrentNumber = styled.div<{ isSpinning: boolean }>`
-  background: ${(props) => props.theme.pink};
+  background: ${(props) => props.theme.orange};
   border-radius: 50%;
   width: 200px;
   border: 3px solid ${(props) => props.theme.white};
@@ -92,8 +92,8 @@ export const CurrentNumber = styled.div<{ isSpinning: boolean }>`
     user-select: none;
     color: ${(props) => props.theme.white};
     ${({ isSpinning }) =>
-			isSpinning &&
-			css`
+    isSpinning &&
+    css`
         animation: ${spin} 1s ease-in-out;
       `}
   }
@@ -132,10 +132,10 @@ export const DrawnNumbers = styled.div`
   border-radius: 10px;
 `;
 
-export const RowOfNumbers = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+// export const RowOfNumbers = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+// `;
 
 export const CardNumber = styled.div`
   user-select: none;
@@ -145,6 +145,7 @@ export const CardNumber = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   width: 50px;
   height: 50px;
   font-size: 1.5rem;
@@ -152,13 +153,60 @@ export const CardNumber = styled.div`
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
+// export const Letters = styled.div`
+//   color: ${(props) => props.theme.black};
+//   font-size: 2.5rem;
+//   font-weight: bold;
+//   user-select: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 4rem;
+// `;
+
+export const BingoPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: #2e3a4e; /* Fundo do painel */
+  border-radius: 15px;
+`;
+
+export const RowOfNumbers = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 export const Letters = styled.div`
-  color: ${(props) => props.theme.black};
-  font-size: 2.5rem;
+  font-size: 24px;
   font-weight: bold;
-  user-select: none;
+  color: #ffffff;
+  margin-right: 10px;
+`;
+
+export const PanelSlot = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1a233a, #0b1a2b); /* Gradiente para o buraco */
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4rem;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.6); /* Sombra interna */
+`;
+
+export const Ball = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ec5d5e, #d04747); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
 `;

@@ -1,5 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Header } from "../../components/Header";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import * as z from "zod";
+import { api } from "../../services/api";
 import {
 	Button,
 	ErrorText,
@@ -9,12 +14,6 @@ import {
 	InputContainer,
 	LabelInput,
 } from "./styles";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-import { api } from "../../services/api";
-import axios from "axios";
 
 const userCode = z.object({
 	userCode: z.coerce.number(),
@@ -67,7 +66,6 @@ export function InsertCodePlayer() {
 
 	return (
 		<>
-			<Header />
 			<FormContainer>
 				<Form onSubmit={handleSubmit(handleUserCode)}>
 					<LabelInput ref={labelRef} htmlFor="input-code">
