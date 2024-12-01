@@ -1,23 +1,22 @@
 import { createGlobalStyle } from "styled-components";
-import PublicSansRegular from "../assets/fonts/PublicSans-Regular.ttf";
-import UnboundedRegular from "../assets/fonts/Unbounded-Regular.ttf";
+import MontserratRegular from "../assets/fonts/Montserrat-Regular.ttf";
+import RalewayRegular from "../assets/fonts/Raleway-Regular.ttf";
 
 export const GlobalStyle = createGlobalStyle`
-
   @font-face {
-    font-family: 'UnboundedRegular';
+    font-family: 'RalewayRegular';
     font-weight: 400;
     font-display: 'swap';
     font-style: 'normal';
-    src: url('${UnboundedRegular}') format('truetype')
+    src: url('${RalewayRegular}') format('truetype')
   }
 
   @font-face {
-    font-family: 'PublicSansRegular';
+    font-family: 'MontserratRegular';
     font-weight: 400;
     font-display: 'swap';
     font-style: 'normal';
-    src: url('${PublicSansRegular}') format('truetype')
+    src: url('${MontserratRegular}') format('truetype')
   }
 
   * {
@@ -26,19 +25,15 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box; 
   }
 
-  body {
-    /* background: ${(props) => props.theme.gradient}; */
-  }
-
   body, input, textarea, button {
-    font-family: 'PublicSansRegular', sans-serif;
+    font-family: 'MontserratRegular', sans-serif;
     font-weight: 400;
     font-size: 1rem;
     color: ${(props) => props.theme.black}
   }
 
   h1, h2, h3 {
-    font-family: 'UnboundedRegular', sans-serif;
+    font-family: 'MontserratRegular', sans-serif;
   }
 
   button {
