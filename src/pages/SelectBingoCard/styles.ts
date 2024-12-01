@@ -77,7 +77,7 @@ export const Title = styled.h1`
 `;
 
 export const Subtitulo = styled.h3`
-  color: ${(props) => props.theme.gray};
+  color: ${(props) => props.theme.white};
 `;
 
 export const BingoTable = styled.table`
@@ -107,7 +107,7 @@ export const BingoTable = styled.table`
   td > div {
     text-align: center;
     user-select: none;
-    background: ${(props) => props.theme.green};
+    background: ${(props) => props.theme.blue};
     padding: 20px 10px;
     width: 100%;
     color: ${(props) => props.theme.white};

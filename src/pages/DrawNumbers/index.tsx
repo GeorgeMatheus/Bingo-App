@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { Header } from "../../components/Header";
 import { ArrowCounterClockwise } from "@phosphor-icons/react";
+import { useState } from "react";
 
+import { ConfirmationMessage } from "../../components/ConfirmationMessage";
+import useModal from "../../hooks/useModal";
 import {
+	Ball,
+	BingoPanel,
 	BtnRestartDraw,
 	ButtonDrawNumber,
-	CardNumber,
 	CurrentNumber,
 	DrawNumber,
 	DrawNumbersContainer,
@@ -13,10 +15,10 @@ import {
 	DrawnNumbersCab,
 	Letter,
 	Letters,
-	RowOfNumbers,
+	NotDrawn,
+	PanelSlot,
+	RowOfNumbers
 } from "./styles";
-import useModal from "../../hooks/useModal";
-import { ConfirmationMessage } from "../../components/ConfirmationMessage";
 
 const min = 1;
 const max = 75;
@@ -48,7 +50,7 @@ export function DrawNumbers() {
 			]);
 			setCurrentNumber(randomNumber);
 			setIsSpinning(false);
-		}, 1000); // A duração da animação deve coincidir com a duração do timeout
+		}, 1000);
 	}
 
 	function rangeNumber(num: number) {
@@ -86,7 +88,6 @@ export function DrawNumbers() {
 	return (
 		<>
 			{modal}
-			<Header />
 			<DrawNumbersContainer>
 				<DrawNumber>
 					<CurrentNumber isSpinning={isSpinning}>
@@ -123,7 +124,7 @@ export function DrawNumbers() {
 						</BtnRestartDraw>
 					</DrawnNumbersCab>
 
-					<div>
+					<BingoPanel>
 						{bingoLetters.map((letter) => (
 							<RowOfNumbers key={letter}>
 								<Letters>{letter}</Letters>
@@ -131,20 +132,20 @@ export function DrawNumbers() {
 									const number = renderNumberCurrent;
 									renderNumberCurrent += 1;
 									const isDrawn = drawnNumbers.includes(number);
+
 									return (
-										<CardNumber
-											key={number}
-											style={{
-												backgroundColor: isDrawn ? "#EC5D5E" : "#07D289",
-											}}
-										>
-											{number}
-										</CardNumber>
+										<PanelSlot key={number}>
+											{isDrawn ? (
+												<Ball>{number}</Ball>
+											) : (
+												<NotDrawn>{number}</NotDrawn>
+											)}
+										</PanelSlot>
 									);
 								})}
 							</RowOfNumbers>
 						))}
-					</div>
+					</BingoPanel>
 				</DrawnNumbers>
 			</DrawNumbersContainer>
 		</>

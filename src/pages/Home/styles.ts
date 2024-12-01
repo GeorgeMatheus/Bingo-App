@@ -5,8 +5,8 @@ export const HomeContainer = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 90vh;
-  gap: 2rem;
+  /* min-height: 90vh; */
+  gap: 1rem;
 `;
 
 export const Title = styled.h1`
@@ -26,31 +26,17 @@ export const Card = styled.div`
   justify-content: space-between;
   gap: 2rem;
   background: ${(props) => props.theme.whitesmoke};
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 15px;
   cursor: pointer;
 
   img {
-    width: 400px;
+    width: 250px;
   }
 
   transition: transform 0.3s ease;
 
   &:hover {
     transform: scale(1.05);
-  }
-`;
-
-export const Button = styled.button`
-  background: ${(props) => props.theme.green};
-  color: ${(props) => props.theme.white};
-  border: none;
-  padding: 0.5rem 1rem;
-  width: 400px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: ${(props) => props.theme.greenHover};
   }
 `;

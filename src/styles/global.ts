@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import UnboundedRegular from "../assets/fonts/Unbounded-Regular.ttf";
 import PublicSansRegular from "../assets/fonts/PublicSans-Regular.ttf";
+import UnboundedRegular from "../assets/fonts/Unbounded-Regular.ttf";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -27,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${(props) => props.theme.purple};
+    /* background: ${(props) => props.theme.gradient}; */
   }
 
   body, input, textarea, button {

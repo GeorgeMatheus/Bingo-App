@@ -80,6 +80,7 @@ export const Subtitulo = styled.h3`
   color: ${(props) => props.theme.gray};
 `;
 
+
 export const BingoTable = styled.table`
   border-collapse: collapse;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -122,6 +123,22 @@ export const BingoTable = styled.table`
     &:active {
       box-shadow: inset rgba(0, 0, 0, 0.2) 0px 1px 2px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
       transform: perspective(800px) rotateX(30deg) translateY(6px);
+    }
+
+    &.marked {
+      background-color: ${props => props.theme.orange};
+      box-shadow: none;
+      transform: translateY(3px);
+    }
+
+    &.unmarked {
+      background-color: ${props => props.theme.blue};
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px;
+      transform: none;
+    }
+
+    &:focus {
+      outline: 2px solid #6c757d;
     }
   }
 `;

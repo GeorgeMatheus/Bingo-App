@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { Header } from "../../components/Header";
+import { useNavigate, useParams } from "react-router-dom";
 import { CardNumbers } from "../../@types/CardNumbers";
+import { ConfirmationMessage } from "../../components/ConfirmationMessage";
+import useModal from "../../hooks/useModal";
+import { api } from "../../services/api";
 import {
 	BingoContainer,
 	BingoTable,
@@ -11,10 +14,6 @@ import {
 	Subtitulo,
 	Title,
 } from "./styles";
-import { useNavigate, useParams } from "react-router-dom";
-import { api } from "../../services/api";
-import useModal from "../../hooks/useModal";
-import { ConfirmationMessage } from "../../components/ConfirmationMessage";
 
 export function SelectBingoCard() {
 	const [bingoCard, setBingoCard] = useState<CardNumbers>({
@@ -86,7 +85,6 @@ export function SelectBingoCard() {
 	return (
 		<>
 			{modal}
-			<Header />
 			<BingoContainer>
 				<CabCardNumbers>
 					<Title>Bem vindo(a)!</Title>

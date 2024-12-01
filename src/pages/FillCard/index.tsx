@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
-import { Header } from "../../components/Header";
-import { BingoContainer, BingoTable, Title } from "./styles";
-import { CardNumbers } from "../../@types/CardNumbers";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { api } from "../../services/api";
+import { CardNumbers } from "../../@types/CardNumbers";
 import { User } from "../../@types/User";
+import { api } from "../../services/api";
+import { BingoContainer, BingoTable, Title } from "./styles";
 
 export function FillCard() {
 	const [bingoCard, setBingoCard] = useState<CardNumbers>({
@@ -71,7 +70,6 @@ export function FillCard() {
 
 	return (
 		<>
-			<Header />
 			<BingoContainer>
 				<Title>{`Bem vindo, ${user?.result?.nome}!`}</Title>
 				<BingoTable>
@@ -97,17 +95,9 @@ export function FillCard() {
 											role="button"
 											aria-label="Marcar números"
 											onClick={() => handleCheckNumber(rowIndex, column)}
-											style={{
-												backgroundColor: markedNumbers[`${column}-${rowIndex}`]
-													? "#EC5D5E"
-													: "#07D289",
-												boxShadow: markedNumbers[`${column}-${rowIndex}`]
-													? "none"
-													: "rgba(0, 0, 0, 0.2) 0px 3px 5px",
-												transform: markedNumbers[`${column}-${rowIndex}`]
-													? "translateY(3px)"
-													: "none",
-											}}
+											className={
+												markedNumbers[`${column}-${rowIndex}`] ? "marked" : "unmarked"
+											}
 										>
 											{bingoCard[column][rowIndex]}
 										</div>
