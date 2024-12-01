@@ -51,10 +51,10 @@ export const BtnRestartDraw = styled.button`
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
   
   &:hover:not(:disabled) {
-    background-color: rgba(179, 229, 252, 0.2); /* Light blue with transparency */
-    color: rgba(0, 123, 178, 1); /* Darker blue for contrast */
+    background-color: rgba(179, 229, 252, 0.2); 
+    color: rgba(0, 123, 178, 1);
     border-color: rgba(0, 123, 178, 1);
-    box-shadow: 0px 4px 8px rgba(0, 123, 178, 0.2); /* Soft shadow for a 3D effect */
+    box-shadow: 0px 4px 8px rgba(0, 123, 178, 0.2); 
   }
   
   &:disabled {
@@ -74,10 +74,9 @@ export const DrawNumber = styled.div`
 `;
 
 export const CurrentNumber = styled.div<{ isSpinning: boolean }>`
-  background: ${(props) => props.theme.orange};
+  background: radial-gradient(circle, #FF9A33, #FF8300);
   border-radius: 50%;
   width: 200px;
-  border: 3px solid ${(props) => props.theme.white};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,11 +131,6 @@ export const DrawnNumbers = styled.div`
   border-radius: 10px;
 `;
 
-// export const RowOfNumbers = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-// `;
-
 export const CardNumber = styled.div`
   user-select: none;
   background: ${(props) => props.theme.green};
@@ -153,23 +147,12 @@ export const CardNumber = styled.div`
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
-// export const Letters = styled.div`
-//   color: ${(props) => props.theme.black};
-//   font-size: 2.5rem;
-//   font-weight: bold;
-//   user-select: none;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 4rem;
-// `;
-
 export const BingoPanel = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-  background: #2e3a4e; /* Fundo do painel */
+  background: #2e3a4e;
   border-radius: 15px;
 `;
 
@@ -180,33 +163,43 @@ export const RowOfNumbers = styled.div`
 `;
 
 export const Letters = styled.div`
-  font-size: 24px;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   color: #ffffff;
-  margin-right: 10px;
+  width: 50px;
+  height: 50px;
 `;
 
 export const PanelSlot = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #1a233a, #0b1a2b); /* Gradiente para o buraco */
+  background: linear-gradient(145deg, #1a233a, #0b1a2b);
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.6); /* Sombra interna */
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.6);
 `;
 
 export const Ball = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ec5d5e, #d04747); 
+  background: radial-gradient(circle, #FF9A33, #FF8300);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); 
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
+  color: ${props => props.theme.white};
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
 `;
+
+export const NotDrawn = styled.span`
+  font-size: 18px;
+  color: #adb5bd;
+  font-weight: bold;
+`

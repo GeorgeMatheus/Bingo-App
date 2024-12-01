@@ -15,6 +15,7 @@ import {
 	DrawnNumbersCab,
 	Letter,
 	Letters,
+	NotDrawn,
 	PanelSlot,
 	RowOfNumbers
 } from "./styles";
@@ -49,7 +50,7 @@ export function DrawNumbers() {
 			]);
 			setCurrentNumber(randomNumber);
 			setIsSpinning(false);
-		}, 1000); // A duração da animação deve coincidir com a duração do timeout
+		}, 1000);
 	}
 
 	function rangeNumber(num: number) {
@@ -134,7 +135,11 @@ export function DrawNumbers() {
 
 									return (
 										<PanelSlot key={number}>
-											{isDrawn && <Ball>{number}</Ball>} {/* Exibe a bola se o número foi sorteado */}
+											{isDrawn ? (
+												<Ball>{number}</Ball>
+											) : (
+												<NotDrawn>{number}</NotDrawn>
+											)}
 										</PanelSlot>
 									);
 								})}

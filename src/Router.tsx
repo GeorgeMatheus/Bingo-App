@@ -9,8 +9,6 @@ import { SelectBingoCard } from "./pages/SelectBingoCard";
 export function Router() {
 	return (
 		<Routes>
-			{/* <Route path="/" element={<Home />} /> */}
-
 			<Route path="/" element={<AppLayout />}>
 				<Route path="/" element={<Home />} />
 				<Route path="drawNumbers" element={<DrawNumbers />} />
