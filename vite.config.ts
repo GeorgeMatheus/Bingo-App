@@ -5,8 +5,8 @@ import { defineConfig, loadEnv } from "vite";
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), "");
 
-	const APP_ROOT = env.VITE_APP_ROOT || "/";
-	const APP_PORT = Number(env.VITE_APP_PORT) || 5173;
+	const APP_ROOT = "/";
+	const APP_PORT = 3000;
 
 	return {
 		plugins: [react()],
